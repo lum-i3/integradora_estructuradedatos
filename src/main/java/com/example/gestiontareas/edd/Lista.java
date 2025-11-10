@@ -36,7 +36,7 @@ public class Lista<T> {
 
     //Elimina un elemento por posición
 
-    public void eliminar(int index) {
+    public void eliminarTarea(int index) {
         if (head == null) {
             System.out.println("La lista esta vacia");
             return;
@@ -70,7 +70,7 @@ public class Lista<T> {
 
     //Muestra todos los elementos de la lista
 
-    public void mostrar() {
+    public void mostrarTarea() {
         Nodo<T> aux = head;
         System.out.println("Contenido de la lista:");
         while (aux != null) {
