@@ -44,6 +44,7 @@ public class Lista<T> {
 
         if (index == 0) {
             head = head.siguiente;
+            size--;
             return;
         }
 

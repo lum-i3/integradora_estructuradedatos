@@ -35,6 +35,9 @@ public class Cola<T> {
         T aux = inicio.data;
         inicio = inicio.siguiente;
         size--;
+        if (inicio == null) {
+            fin = null;
+        }
         return aux;
     }
 

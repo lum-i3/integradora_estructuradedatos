@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Administrador de tareas</title>
+    <link rel="stylesheet" href="style/index.css" />
+
+</head>
+
+<body>
+<header class="navbar">
+    <div class="logo">
+        <p class="titulo">Administrador de tareas</p>
+    </div>
+    <nav class="user-info">
+    </nav>
+</header>
+
+<main class="dashboard">
+    <aside class="sidebar">
+        <h3>MENÚ</h3>
+        <ul>
+            <li onclick="window.location.href='Agregar tareas'"><span>Agregar tareas</span></li>
+            <li onclick="window.location.href='Eliminar tareas'"><span>Buscar</span></li>
+            <li onclick="window.location.href='Orden por prioridades'"><span>Prioridades</span></li>
+        </ul>
+    </aside>
+
+    <section class="content">
+        <h2>Tareas</h2>
+        <div class="window">
+
+            <div class="solicitud-card">
+                <h4>Tarea numero: <b>1</b></h4>
+                <p>Nombre: <b>Estudiar ingles</b></p>
+                <p>Estudiar verbos</p>
+                <button class="btn-action">Completar</button>
+                <button class="btn-action" style="background-color:#e57373;">Eliminar</button>
+            </div>
+
+            <div class="solicitud-card">
+                <h4>Tarea numero: <b>2</b></h4>
+                <p>Nombre: <b>Ejercicios calculo</b></p>
+                <p>Integrakes definidas</p>
+                <button class="btn-action">Completar</button>
+                <button class="btn-action" style="background-color:#e57373;">Eliminar</button>
+            </div>
+
+        </div>
+    </section>
+</main>
+</body>
+</html>

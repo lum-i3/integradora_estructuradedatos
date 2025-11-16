@@ -1,60 +1,92 @@
 package com.example.gestiontareas.edd;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         Gestor gestor = new Gestor();
         Lista<Tarea> lista = new Lista<>();
         Pila<Tarea> historial = new Pila<>();
 
-        Tarea t1 = new Tarea("Mapa mental", "Realizar un mapa mental", "Media");
-        Tarea t2 = new Tarea("Estudiar", "Estudiar para el examen de matemáticas", "Alta");
-        Tarea t3 = new Tarea("Ensayo", "Escribir ensayo sobre el renacimiento", "Baja");
-        Tarea t4 = new Tarea("Cartel", "Imprimir cartel de igualdad de género", "Media");
+        boolean continuar = true;
 
-        gestor.agregarTarea(t1, lista);
-        historial.Insertar(t1);
+        do {
+            System.out.println("\n--- MENU ---");
+            System.out.println("1. Agregar Tarea");
+            System.out.println("2. Ver Lista");
+            System.out.println("3. Ver Prioridades (Colas)");
+            System.out.println("4. Ver Historial (Pila)");
+            System.out.println("5. Completar Tarea");
+            System.out.println("6. Deshacer");
+            System.out.println("7. Buscar por Indice");
+            System.out.println("0. Salir");
+            System.out.print("Opcion: ");
 
-        gestor.agregarTarea(t2, lista);
-        historial.Insertar(t2);
+            int opcion = sc.nextInt();
+            sc.nextLine(); // Limpiar el buffer
 
-        gestor.agregarTarea(t3, lista);
-        historial.Insertar(t3);
+            switch (opcion) {
+                case 1:
+                    System.out.print("Titulo: ");
+                    String titulo = sc.nextLine();
+                    System.out.print("Descripcion: ");
+                    String desc = sc.nextLine();
+                    System.out.print("Prioridad (Alta/Media/Baja): ");
+                    String prio = sc.nextLine();
 
-        gestor.agregarTarea(t4, lista);
-        historial.Insertar(t4);
+                    Tarea t = new Tarea(titulo, desc, prio);
+                    gestor.agregarTarea(t, lista);
+                    historial.Insertar(t);
+                    break;
 
-        System.out.println("===== LISTA DE TAREAS INICIAL =====");
-        lista.mostrarTarea();
+                case 2:
+                    lista.mostrarTarea();
+                    break;
 
-        System.out.println("\n===== HISTORIAL DE TAREAS AGREGADAS (PILA) =====");
-        historial.mostrarPila();
+                case 3:
+                    gestor.mostrarColas();
+                    break;
 
-        System.out.println("\n===== COLAS POR PRIORIDAD =====");
-        gestor.mostrarColas();
+                case 4:
+                    historial.mostrarPila();
+                    break;
 
-        System.out.println("\n===== DESHACER (2 ACCIONES) =====");
-        for (int i = 0; i < 2; i++) {
-            if (!historial.PilaVacia()) {
-                Tarea tareaDeshecha = historial.Quitar();
-                int tamano = lista.tamanioLista();
-                lista.eliminarTarea(tamano - 1);
-                System.out.println("Acción deshecha: se eliminó '" + tareaDeshecha.getTitulo() + "'");
+                case 5:
+                    gestor.completarSiguienteTarea();
+                    break;
+
+                case 6:
+                    if (!historial.PilaVacia()) {
+                        Tarea eliminada = historial.Quitar();
+                        int tamano = lista.tamanioLista();
+                        lista.eliminarTarea(tamano - 1);
+                        System.out.println("Se deshizo: " + eliminada.getTitulo());
+                    } else {
+                        System.out.println("Nada que deshacer.");
+                    }
+                    break;
+
+                case 7:
+                    System.out.print("Indice (1, 2...): ");
+                    int idx = sc.nextInt();
+                    // Restamos 1 porque la lista empieza en 0
+                    try {
+                        Tarea encontrada = lista.obtener(idx - 1);
+                        System.out.println("Encontrada: " + encontrada.getTitulo());
+                    } catch (Exception e) {
+                        System.out.println("Indice no valido.");
+                    }
+                    break;
+
+                case 0:
+                    continuar = false;
+                    break;
+
+                default:
+                    System.out.println("Opcion incorrecta");
             }
-        }
 
-        System.out.println("\n===== ESTADO DESPUÉS DE DESHACER =====");
-        System.out.println("Pila:");
-        historial.mostrarPila();
-        System.out.println("Lista:");
-        lista.mostrarTarea();
-
-        System.out.println("\n===== COMPLETANDO TAREAS =====");
-        gestor.completarSiguienteTarea(); // debería completar una de prioridad alta
-        gestor.completarSiguienteTarea(); // siguiente según prioridad
-
-        System.out.println("\n===== ESTADO FINAL =====");
-        gestor.mostrarColas();
-        System.out.println("\nLista final:");
-        lista.mostrarTarea();
+        } while (continuar);
     }
 }

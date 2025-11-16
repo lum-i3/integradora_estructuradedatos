@@ -1,0 +1,191 @@
+
+
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background-color: #ecf4e8;
+    color: #1d283a;
+}
+
+
+.navbar {
+    background-color: #4b7763;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    position: relative;
+    z-index: 10;
+}
+.titulo {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-secondary {
+    background-color: #d8a878;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-secondary:hover {
+    background-color: #e7e79d;
+}
+
+.dashboard {
+    display: flex;
+    height: calc(100vh - 60px);
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #ffffffcc;
+    border-right: 1px solid #d1d5db;
+    padding: 20px;
+}
+
+.sidebar h3 {
+    margin-bottom: 15px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.sidebar li:hover {
+    background-color: #606078;
+}
+
+.content {
+    flex: 1;
+    padding: 30px;
+}
+
+.section-box {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+/* --- SIDEBAR --- */
+aside.sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #78a890 0%, #c0d890 100%);
+    color: white;
+    border-right: none;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+aside.sidebar h3 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #e6f5eb;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 8px;
+}
+
+aside.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+aside.sidebar li {
+    margin-bottom: 12px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+aside.sidebar li:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: translateX(5px);
+}
+
+/* Íconos */
+aside.sidebar li::before {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Texto dentro del sidebar */
+aside.sidebar li span {
+    font-weight: 500;
+}
+
+/* Scroll elegante si hay muchas opciones */
+aside.sidebar ul::-webkit-scrollbar {
+    width: 6px;
+}
+
+aside.sidebar ul::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.window {
+    background-color: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid #e5e7eb;
+    animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+.solicitud-card {
+    background-color: #f4faf6;
+    border: 1px solid #d3ead9;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+.btn-action {
+    background-color: #6bbe92;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.btn-action:hover {
+    background-color: #4da679;
+}
