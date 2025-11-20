@@ -1,11 +1,25 @@
 package com.example.gestiontareas;
 
+import com.example.gestiontareas.edd.TareaService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class HelloController {
-    @GetMapping("/hello")
-    public String hello() { return "Hola Spring!";
+
+    private final TareaService tareaService;
+
+    public HelloController(TareaService tareaService) {
+        this.tareaService = tareaService;
     }
+
+    @GetMapping("/")
+    public String inicio(Model model) {
+        model.addAttribute("lista", tareaService.obtenerTareas());
+        return "tareas/ver";
+    }
+
 }
+
+

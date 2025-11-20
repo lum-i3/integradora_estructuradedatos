@@ -101,4 +101,22 @@ public class Lista<T> {
     public boolean estaVacia() {
         return head == null;
     }
+
+    public Object[] obtenerArreglo() {
+        Object[] arreglo = new Object[size];
+        Nodo<T> aux = head;
+        int i = 0;
+
+        while (aux != null) {
+            arreglo[i] = aux.data;
+            aux = aux.siguiente;
+            i++;
+        }
+
+        return arreglo;
+    }
+
+    public Object[] obtenerArregloTareas() {
+        return obtenerArreglo();
+    }
 }

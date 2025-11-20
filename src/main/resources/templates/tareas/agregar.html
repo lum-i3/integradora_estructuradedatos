@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles/index.css">
+    <title>Agregar tarea</title>
+</head>
+
+<body>
+<header class="navbar">
+    <div class="logo"><p class="titulo">Administrador de tareas</p></div>
+</header>
+
+<main class="dashboard">
+    <aside class="sidebar">
+        <h3>MENÚ</h3>
+        <ul>
+            <li onclick="window.location.href='/tareas'">Ver tareas</li>
+            <li onclick="window.location.href='/tareas/agregar'">Agregar tarea</li>
+            <li onclick="window.location.href='/tareas/buscar'">Buscar tarea</li>
+            <li onclick="window.location.href='/tareas/ordenar'">Ordenar por prioridad</li>
+        </ul>
+    </aside>
+
+    <section class="content">
+        <h2>Agregar nueva tarea</h2>
+
+        <form action="/tareas/agregar" method="post" class="form-agregar">
+
+            <input type="text" name="titulo" placeholder="Título de la tarea" required>
+
+            <input type="text" name="descripcion" placeholder="Descripción" required>
+
+            <select name="prioridad" required>
+                <option value="">Selecciona prioridad</option>
+                <option value="Alta">Alta</option>
+                <option value="Media">Media</option>
+                <option value="Baja">Baja</option>
+            </select>
+
+            <button type="submit" class="btn-action">Guardar tarea</button>
+        </form>
+
+    </section>
+</main>
+
+</body>
+</html>

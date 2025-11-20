@@ -17,6 +17,9 @@ public class Tarea {
         this.prioridad = prioridad;
     }
 
+    public Tarea() {
+    }
+
     //Getters y Setters
 
     public int getId() {
