@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles/index.css">
+    <title>Buscar tareas</title>
+</head>
+
+<body>
+<header class="navbar">
+    <div class="logo"><p class="titulo">Administrador de tareas</p></div>
+</header>
+
+<main class="dashboard">
+    <aside class="sidebar">
+        <h3>MENÚ</h3>
+        <ul>
+            <li onclick="window.location.href='/tareas/ver.html'">Ver tareas</li>
+            <li onclick="window.location.href='/tareas/agregar.html'">Agregar tarea</li>
+            <li onclick="window.location.href='/tareas/buscar.html'">Buscar tarea</li>
+            <li onclick="window.location.href='/tareas/ordenar.html'">Ordenar por prioridad</li>
+        </ul>
+    </aside>
+
+    <section class="content">
+        <h2>Buscar tarea</h2>
+
+        <form action="/tareas/buscar" method="post">
+            <input type="text" name="query" placeholder="Nombre de la tarea">
+            <button type="button" class="btn-action" onclick="buscar()">Buscar</button>
+        </form>
+
+        <div class="window">
+            <h3>Resultados</h3>
+            <!-- Aquí tu backend puede inyectar texto simple o dejar la página estática -->
+        </div>
+
+    </section>
+</main>
+<script src="/js/buscar.js" defer></script>
+</body>
+</html>

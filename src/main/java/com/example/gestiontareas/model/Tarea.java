@@ -1,4 +1,4 @@
-package com.example.gestiontareas.edd;
+package com.example.gestiontareas.model;
 
 public class Tarea {
     private static int contadorId = 1;
@@ -25,6 +25,8 @@ public class Tarea {
     public int getId() {
         return id;
     }
+
+    public void setId(int id) {this.id = id;}
 
     public String getTitulo() {
         return titulo;

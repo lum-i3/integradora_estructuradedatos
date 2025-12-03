@@ -1,4 +1,4 @@
-package com.example.gestiontareas.edd;
+package com.example.gestiontareas.estructuras;
 
 public class Nodo<T>{
     public T data;

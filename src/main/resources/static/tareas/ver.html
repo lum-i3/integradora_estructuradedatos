@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles/index.css">
+    <script src="/js/ver.js" defer></script>
+    <title>Ver tareas</title>
+</head>
+
+<body>
+<header class="navbar">
+    <div class="logo"><p class="titulo">Administrador de tareas</p></div>
+</header>
+
+<main class="dashboard">
+    <aside class="sidebar">
+        <h3>MENÚ</h3>
+        <ul>
+            <li onclick="window.location.href='/tareas/ver.html'">Ver tareas</li>
+            <li onclick="window.location.href='/tareas/agregar.html'">Agregar tarea</li>
+            <li onclick="window.location.href='/tareas/buscar.html'">Buscar tarea</li>
+            <li onclick="window.location.href='/tareas/ordenar.html'">Ordenar por prioridad</li>
+        </ul>
+    </aside>
+
+    <section class="content">
+        <h2>Listado de tareas</h2>
+        <div class="window" id="contenedor-tareas">
+
+            <!-- Las tarjetas de tareas serán insertadas aquí por JS -->
+
+        </div>
+    </section>
+</main>
+<script src="/js/ver.js" defer></script>
+</body>
+</html>

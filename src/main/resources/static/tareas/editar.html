@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/styles/index.css">
+    <title>Editar tarea</title>
+</head>
+
+<body>
+<header class="navbar">
+    <div class="logo"><p class="titulo">Administrador de tareas</p></div>
+</header>
+
+<main class="dashboard">
+    <aside class="sidebar">
+        <h3>MENÚ</h3>
+        <ul>
+            <li onclick="window.location.href='/tareas/ver.html'">Ver tareas</li>
+            <li onclick="window.location.href='/tareas/agregar.html'">Agregar tarea</li>
+            <li onclick="window.location.href='/tareas/buscar.html'">Buscar tarea</li>
+            <li onclick="window.location.href='/tareas/ordenar.html'">Ordenar por prioridad</li>
+        </ul>
+    </aside>
+
+    <section class="content">
+        <h2>Editar tarea</h2>
+
+        <form action="/tareas/editar" method="post" class="form-agregar">
+
+            <input type="hidden" name="id" value="">
+
+            <label>Título:</label>
+            <input type="text" name="titulo" required>
+
+            <label>Descripción:</label>
+            <input type="text" name="descripcion" required>
+
+            <label>Prioridad:</label>
+            <select name="prioridad" required>
+                <option>Alta</option>
+                <option>Media</option>
+                <option>Baja</option>
+            </select>
+
+            <button type="button" onclick="guardarCambios()" class="btn-action">Guardar cambios</button>
+        </form>
+    </section>
+</main>
+<script src="/js/editar.js" defer></script>
+</body>
+</html>

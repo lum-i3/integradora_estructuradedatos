@@ -1,4 +1,6 @@
-package com.example.gestiontareas.edd;
+package com.example.gestiontareas.estructuras;
+
+import com.example.gestiontareas.model.Tarea;
 
 public class Gestor {
     private Cola<Tarea> colaAlta = new Cola<>();

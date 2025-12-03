@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/styles/index.css">
@@ -15,10 +15,10 @@
     <aside class="sidebar">
         <h3>MENÚ</h3>
         <ul>
-            <li onclick="window.location.href='/tareas'">Ver tareas</li>
-            <li onclick="window.location.href='/tareas/agregar'">Agregar tarea</li>
-            <li onclick="window.location.href='/tareas/buscar'">Buscar tarea</li>
-            <li onclick="window.location.href='/tareas/ordenar'">Ordenar por prioridad</li>
+            <li onclick="window.location.href='/tareas/ver.html'">Ver tareas</li>
+            <li onclick="window.location.href='/tareas/agregar.html'">Agregar tarea</li>
+            <li onclick="window.location.href='/tareas/buscar.html'">Buscar tarea</li>
+            <li onclick="window.location.href='/tareas/ordenar.html'">Ordenar por prioridad</li>
         </ul>
     </aside>
 
@@ -38,11 +38,11 @@
                 <option value="Baja">Baja</option>
             </select>
 
-            <button type="submit" class="btn-action">Guardar tarea</button>
+            <button type="button" onclick="guardar()" class="btn-action">Guardar tarea</button>
         </form>
 
     </section>
 </main>
-
+<script src="/js/agregar.js" defer></script>
 </body>
 </html>
