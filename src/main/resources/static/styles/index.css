@@ -5,6 +5,26 @@ body {
     color: #1d283a;
 }
 
+.input-sencillo {
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.input-sencillo:hover {
+    border-color: #999;
+}
+
+.input-sencillo:focus {
+    outline: none;
+    border-color: #1d283a;
+    box-shadow: 0 0 5px rgb(17, 140, 111);
+}
 
 .navbar {
     background-color: #4b7763;

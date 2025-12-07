@@ -1,38 +1,64 @@
 package com.example.gestiontareas.service;
 
 import com.example.gestiontareas.model.Tarea;
+import com.example.gestiontareas.repository.TareaRepository;
 import com.example.gestiontareas.estructuras.Lista;
 import com.example.gestiontareas.estructuras.Pila;
 import com.example.gestiontareas.estructuras.Cola;
 import com.example.gestiontareas.estructuras.ArbolBinario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import jakarta.annotation.PostConstruct;
+
+import java.util.List;
 
 @Service
 public class TareaService {
+
+    @Autowired
+    private TareaRepository tareaRepository;
 
     private Lista<Tarea> listaTareas = new Lista<>();
     private Pila<Tarea> historialPila = new Pila<>();
     private Cola<Tarea> colaPendientes = new Cola<>();
     private ArbolBinario arbolTareas = new ArbolBinario();
 
+    // Cargar tareas de la BD al iniciar
+    @PostConstruct
+    public void cargarTareasDesdeDB() {
+        List<Tarea> tareasBD = tareaRepository.findAll();
+        for (Tarea tarea : tareasBD) {
+            listaTareas.agregarFinal(tarea);
+            arbolTareas.insertar(tarea);
+            if (!tarea.isCompletada()) {
+                colaPendientes.agregarElementos(tarea);
+            }
+        }
+    }
+
     public void agregarTarea(Tarea tarea) {
-        listaTareas.agregarFinal(tarea);
-        historialPila.Insertar(tarea);
-        colaPendientes.agregarElementos(tarea);
-        arbolTareas.insertar(tarea);
+        // Guardar en BD primero
+        Tarea tareaGuardada = tareaRepository.save(tarea);
+
+        // Agregar a estructuras de datos
+        listaTareas.agregarFinal(tareaGuardada);
+        historialPila.Insertar(tareaGuardada);
+        colaPendientes.agregarElementos(tareaGuardada);
+        arbolTareas.insertar(tareaGuardada);
     }
 
     public boolean eliminarTarea(int id) {
-
         for (int i = 0; i < listaTareas.tamanioLista(); i++) {
             Tarea t = listaTareas.obtener(i);
 
             if (t.getId() == id) {
+                // Eliminar de BD
+                tareaRepository.deleteById(id);
 
+                // Eliminar de estructuras
                 listaTareas.eliminarTarea(i);
                 arbolTareas.eliminar(t.getTitulo());
-                colaPendientes.eliminarElemento(t); // debes implementar eliminarElemento en tu cola
-
+                colaPendientes.eliminarElemento(t);
                 historialPila.Insertar(t);
 
                 return true;
@@ -42,21 +68,39 @@ public class TareaService {
     }
 
     public boolean editarTarea(Tarea editada) {
-
         Tarea original = buscarPorId(editada.getId());
         if (original == null) return false;
 
-        // quitar del árbol antes de modificar
+        // Quitar del árbol antes de modificar
         arbolTareas.eliminar(original.getTitulo());
 
+        // Actualizar valores
         original.setTitulo(editada.getTitulo());
         original.setDescripcion(editada.getDescripcion());
         original.setPrioridad(editada.getPrioridad());
+        original.setCompletada(editada.isCompletada());
 
-        // reinserción en árbol
+        // Guardar en BD
+        tareaRepository.save(original);
+
+        // Reinsertar en árbol
         arbolTareas.insertar(original);
-
         historialPila.Insertar(original);
+
+        return true;
+    }
+
+    public boolean completarTarea(int id) {
+        Tarea tarea = buscarPorId(id);
+        if (tarea == null) return false;
+
+        tarea.setCompletada(true);
+        tareaRepository.save(tarea);
+
+        // Eliminar de cola de pendientes
+        colaPendientes.eliminarElemento(tarea);
+        historialPila.Insertar(tarea);
+
         return true;
     }
 
@@ -85,7 +129,12 @@ public class TareaService {
     }
 
     public Tarea atenderSiguiente() {
-        return colaPendientes.quitarElemento();
+        Tarea tarea = colaPendientes.quitarElemento();
+        if (tarea != null) {
+            tarea.setCompletada(true);
+            tareaRepository.save(tarea);
+        }
+        return tarea;
     }
 
     public int pendientesEnCola() {
@@ -98,5 +147,12 @@ public class TareaService {
 
     public Tarea deshacerAccion() {
         return historialPila.Quitar();
+    }
+
+    public void sincronizarConBD() {
+        listaTareas = new Lista<>();
+        arbolTareas = new ArbolBinario();
+        colaPendientes = new Cola<>();
+        cargarTareasDesdeDB();
     }
 }

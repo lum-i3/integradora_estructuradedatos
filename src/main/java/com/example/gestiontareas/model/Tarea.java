@@ -1,16 +1,28 @@
 package com.example.gestiontareas.model;
 
-public class Tarea {
-    private static int contadorId = 1;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "tareas")
+public class Tarea {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(nullable = false)
     private String titulo;
+
+    @Column(length = 500)
     private String descripcion;
+
+    @Column(nullable = false)
     private boolean completada;
+
+    @Column(nullable = false)
     private String prioridad;
 
-    public Tarea(String titulo, String descripcion,  String prioridad) {
-        this.id = contadorId++;
+    public Tarea(String titulo, String descripcion, String prioridad) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.completada = false;
@@ -20,13 +32,14 @@ public class Tarea {
     public Tarea() {
     }
 
-    //Getters y Setters
-
+    // Getters y Setters
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {this.id = id;}
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitulo() {
         return titulo;
@@ -59,8 +72,6 @@ public class Tarea {
     public void setPrioridad(String prioridad) {
         this.prioridad = prioridad;
     }
-
-    //toString
 
     @Override
     public String toString() {
