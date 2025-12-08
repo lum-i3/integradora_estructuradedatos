@@ -111,9 +111,11 @@ function cargarHistorial() {
                 div.classList.add("historial-card");
 
                 div.innerHTML = `
+                <p><b>------------------------------</b></p>
                 <p><b>Acción:</b> ${h.accion}</p>
                 <p><b>Tarea:</b> ${h.tarea.titulo}</p>
                 <p><b>Fecha:</b> ${h.fecha}</p>
+                <p><b>------------------------------</b></p>
             `;
                 cont.appendChild(div);
             });
