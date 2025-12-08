@@ -1,5 +1,7 @@
 package com.example.gestiontareas.estructuras;
 
+import com.example.gestiontareas.model.Tarea;
+
 public class Lista<T> {
     private Nodo<T> head;
     private int size;
@@ -116,7 +118,19 @@ public class Lista<T> {
         return arreglo;
     }
 
-    public Object[] obtenerArregloTareas() {
-        return obtenerArreglo();
+    public Tarea[] obtenerArregloTareas() {
+        // si la lista está vacía devolvemos array vacío
+        if (head == null) return new Tarea[0];
+
+        Tarea[] arreglo = new Tarea[size];
+        Nodo<T> aux = head;
+        int i = 0;
+
+        while (aux != null) {
+            arreglo[i++] = (Tarea) aux.data;
+            aux = aux.siguiente;
+        }
+
+        return arreglo;
     }
 }

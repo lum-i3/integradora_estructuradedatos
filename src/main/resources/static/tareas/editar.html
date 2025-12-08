@@ -18,7 +18,6 @@
             <li onclick="window.location.href='/tareas/ver.html'">Ver tareas</li>
             <li onclick="window.location.href='/tareas/agregar.html'">Agregar tarea</li>
             <li onclick="window.location.href='/tareas/buscar.html'">Buscar tarea</li>
-            <li onclick="window.location.href='/tareas/ordenar.html'">Ordenar por prioridad</li>
         </ul>
     </aside>
 
@@ -30,17 +29,22 @@
             <input type="hidden" name="id" value="">
 
             <label>Título:</label>
-            <input type="text" name="titulo" required>
+            <input type="text" name="titulo" required><br><br>
 
             <label>Descripción:</label>
-            <input type="text" name="descripcion" required>
+            <input type="text" name="descripcion" required><br><br>
 
             <label>Prioridad:</label>
             <select name="prioridad" required>
                 <option>Alta</option>
                 <option>Media</option>
                 <option>Baja</option>
-            </select>
+            </select><br><br>
+
+            <label>
+                <input type="checkbox" name="completada">
+                Completada
+            </label><br><br>
 
             <button type="button" onclick="guardarCambios()" class="btn-action">Guardar cambios</button>
         </form>

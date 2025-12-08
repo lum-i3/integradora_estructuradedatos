@@ -69,4 +69,30 @@ public class Pila <T>{
             System.out.println();
         }
     }
+
+    public boolean eliminar(T elemento) {
+        if (PilaVacia()) return false;
+
+        Pila<T> auxiliar = new Pila<>();
+
+        boolean encontrado = false;
+
+        while (!PilaVacia()) {
+            T temp = Quitar();
+
+            if (temp.equals(elemento) && !encontrado) {
+                encontrado = true; // no lo regresamos
+            } else {
+                auxiliar.Insertar(temp);
+            }
+        }
+
+        // Regresar los elementos a la pila original
+        while (!auxiliar.PilaVacia()) {
+            Insertar(auxiliar.Quitar());
+        }
+
+        return encontrado;
+    }
+
 }

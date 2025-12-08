@@ -28,24 +28,27 @@ public class ArbolBinario {
         return nodo;
     }
 
-    // Buscar por título exacto
-    public Tarea buscar(String titulo) {
-        return buscarRec(raiz, titulo);
+    // devuelve una Lista<Tarea> con las coincidencias parciales (case-insensitive)
+    public Lista<Tarea> buscarPorFraccion(String texto) {
+        Lista<Tarea> resultados = new Lista<>();
+        if (texto == null || texto.isEmpty()) return resultados;
+        buscarPorFraccionRec(raiz, texto.toLowerCase(), resultados);
+        return resultados;
     }
 
-    private Tarea buscarRec(NodoArbol nodo, String titulo) {
-        if (nodo == null) return null;
+    private void buscarPorFraccionRec(NodoArbol nodo, String texto, Lista<Tarea> resultados) {
+        if (nodo == null) return;
 
-        int cmp = titulo.compareToIgnoreCase(nodo.tarea.getTitulo());
+        buscarPorFraccionRec(nodo.izq, texto, resultados);
 
-        if (cmp == 0) return nodo.tarea;
-        if (cmp < 0) return buscarRec(nodo.izq, titulo);
-        return buscarRec(nodo.der, titulo);
+        if (nodo.tarea != null && nodo.tarea.getTitulo() != null &&
+                nodo.tarea.getTitulo().toLowerCase().contains(texto)) {
+            resultados.agregarFinal(nodo.tarea);
+        }
+
+        buscarPorFraccionRec(nodo.der, texto, resultados);
     }
 
-    // -----------------------------------------------------
-    // NUEVO: Eliminar una tarea del árbol
-    // -----------------------------------------------------
     public void eliminar(String titulo) {
         raiz = eliminarRec(raiz, titulo);
     }
@@ -82,9 +85,6 @@ public class ArbolBinario {
         return nodo;
     }
 
-    // -----------------------------------------------------
-    // NUEVO: Obtener lista en inorden (orden alfabético)
-    // -----------------------------------------------------
     public Tarea[] inordenLista() {
         int total = contarNodos(raiz);
         Tarea[] arreglo = new Tarea[total];
@@ -105,9 +105,6 @@ public class ArbolBinario {
         }
     }
 
-    // -----------------------------------------------------
-    // NUEVO: Lista descendente (Z → A)
-    // -----------------------------------------------------
     public Tarea[] inordenListaInvertida() {
         int total = contarNodos(raiz);
         Tarea[] arreglo = new Tarea[total];
@@ -123,7 +120,6 @@ public class ArbolBinario {
         }
     }
 
-    // Mostrar Inorden (para consola)
     public void inorden() {
         inordenRec(raiz);
     }

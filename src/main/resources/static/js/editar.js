@@ -10,6 +10,7 @@ function cargarTarea() {
             document.querySelector("input[name=titulo]").value = t.titulo;
             document.querySelector("input[name=descripcion]").value = t.descripcion;
             document.querySelector("select[name=prioridad]").value = t.prioridad;
+            document.querySelector("input[name=completada]").checked = t.completada;
         });
 }
 
@@ -19,7 +20,8 @@ function guardarCambios() {
     const data = {
         titulo: document.querySelector("input[name=titulo]").value,
         descripcion: document.querySelector("input[name=descripcion]").value,
-        prioridad: document.querySelector("select[name=prioridad]").value
+        prioridad: document.querySelector("select[name=prioridad]").value,
+        completada: document.querySelector("input[name=completada]")?.checked || false
     };
 
     fetch(`/api/tareas/${id}`, {
@@ -28,3 +30,4 @@ function guardarCambios() {
         body: JSON.stringify(data)
     }).then(() => window.location.href = "ver.html");
 }
+

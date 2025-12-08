@@ -42,11 +42,8 @@ public class TareaController {
 
     @GetMapping("/buscar")
     public Tarea[] buscar(@RequestParam String query) {
-        Tarea resultado = tareaService.buscarPorTitulo(query);
-
-        if (resultado == null) return new Tarea[0];
-
-        return new Tarea[]{resultado};
+        if (query == null || query.trim().isEmpty()) return new Tarea[0];
+        return tareaService.buscarPorTitulo(query);
     }
 
     @GetMapping("/ordenar")
@@ -58,4 +55,15 @@ public class TareaController {
 
         return tareaService.ordenarDesc();
     }
+
+    @PutMapping("/completar/{id}")
+    public boolean completar(@PathVariable int id) {
+        return tareaService.completarTarea(id);
+    }
+
+    @PutMapping("/descompletar/{id}")
+    public boolean descompletar(@PathVariable int id) {
+        return tareaService.descompletarTarea(id);
+    }
+
 }

@@ -112,8 +112,10 @@ public class TareaService {
         return null;
     }
 
-    public Tarea buscarPorTitulo(String titulo) {
-        return arbolTareas.buscar(titulo);
+    // devuelve Tarea[] para el controller
+    public Tarea[] buscarPorTitulo(String texto) {
+        Lista<Tarea> resultadosLista = arbolTareas.buscarPorFraccion(texto);
+        return resultadosLista.obtenerArregloTareas();
     }
 
     public Object[] obtenerTodas() {
@@ -121,12 +123,73 @@ public class TareaService {
     }
 
     public Tarea[] ordenarAsc() {
-        return arbolTareas.inordenLista();
+        Tarea[] tareas = arbolTareas.inordenLista(); // NO importa el orden base
+        ordenarPorPrioridadAsc(tareas);
+        return tareas;
     }
 
     public Tarea[] ordenarDesc() {
-        return arbolTareas.inordenListaInvertida();
+        Tarea[] tareas = arbolTareas.inordenLista();
+        ordenarPorPrioridadDesc(tareas);
+        return tareas;
     }
+
+    private int prioridadValor(String prioridad) {
+        if (prioridad == null) return 0;
+
+        switch (prioridad.toLowerCase()) {
+            case "alta": return 3;
+            case "media": return 2;
+            case "baja": return 1;
+            default: return 0;
+        }
+    }
+
+    private void ordenarPorPrioridadAsc(Tarea[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - i - 1; j++) {
+
+                int p1 = prioridadValor(arr[j].getPrioridad());
+                int p2 = prioridadValor(arr[j + 1].getPrioridad());
+
+                if (p1 > p2) {
+                    Tarea temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    private void ordenarPorPrioridadDesc(Tarea[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - i - 1; j++) {
+
+                int p1 = prioridadValor(arr[j].getPrioridad());
+                int p2 = prioridadValor(arr[j + 1].getPrioridad());
+
+                if (p1 < p2) {
+                    Tarea temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    public boolean descompletarTarea(int id) {
+        Tarea tarea = buscarPorId(id);
+        if (tarea == null) return false;
+
+        tarea.setCompletada(false);
+        tareaRepository.save(tarea);
+
+        colaPendientes.agregarElementos(tarea);
+        historialPila.eliminar(tarea);
+
+        return true;
+    }
+
 
     public Tarea atenderSiguiente() {
         Tarea tarea = colaPendientes.quitarElemento();
