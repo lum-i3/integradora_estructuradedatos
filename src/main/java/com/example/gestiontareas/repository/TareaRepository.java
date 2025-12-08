@@ -8,5 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface TareaRepository extends JpaRepository<Tarea, Integer> {
+    //Buscar tarea por título (opcional)
     Optional<Tarea> findByTitulo(String titulo);
 }

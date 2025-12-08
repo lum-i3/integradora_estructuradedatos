@@ -3,8 +3,8 @@ package com.example.gestiontareas.estructuras;
 import com.example.gestiontareas.model.Tarea;
 
 public class Lista<T> {
-    private Nodo<T> head;
-    private int size;
+    private Nodo<T> head; //Primer nodo de la lista
+    private int size; //Cantidad de elementos
 
     public Lista() {
         this.head = null;
@@ -12,7 +12,6 @@ public class Lista<T> {
     }
 
     //Agrega un nuevo elemento al inicio de la lista
-
     public void agregarInicio(T data) {
         Nodo<T> nuevo = new Nodo<>(data);
         nuevo.siguiente = head;
@@ -21,7 +20,6 @@ public class Lista<T> {
     }
 
     //Agrega un nuevo elemento al final de la lista
-
     public void agregarFinal(T data) {
         Nodo<T> nuevo = new Nodo<>(data);
         if (head == null) {
@@ -37,7 +35,6 @@ public class Lista<T> {
     }
 
     //Elimina un elemento por posición
-
     public void eliminarTarea(int index) {
         if (head == null) {
             System.out.println("La lista esta vacia");
@@ -72,7 +69,6 @@ public class Lista<T> {
     }
 
     //Muestra todos los elementos de la lista
-
     public void mostrarTarea() {
         Nodo<T> aux = head;
         System.out.println("Contenido de la lista:");
@@ -84,7 +80,6 @@ public class Lista<T> {
     }
 
     //Devuelve el elemento en una posición específica.
-
     public T obtener(int index) {
         Nodo<T> aux = head;
         int contador = 0;
@@ -99,11 +94,11 @@ public class Lista<T> {
     }
 
     //Verifica si la lista está vacía.
-
     public boolean estaVacia() {
         return head == null;
     }
 
+    //Convierte la lista a un arreglo de objetos
     public Object[] obtenerArreglo() {
         Object[] arreglo = new Object[size];
         Nodo<T> aux = head;
@@ -118,8 +113,9 @@ public class Lista<T> {
         return arreglo;
     }
 
+    //Convierte la lista en un arreglo de tareas
     public Tarea[] obtenerArregloTareas() {
-        // si la lista está vacía devolvemos array vacío
+        //si la lista está vacía devolvemos array vacío
         if (head == null) return new Tarea[0];
 
         Tarea[] arreglo = new Tarea[size];

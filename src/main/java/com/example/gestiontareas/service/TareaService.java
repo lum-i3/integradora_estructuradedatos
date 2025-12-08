@@ -18,6 +18,7 @@ public class TareaService {
     @Autowired
     private TareaRepository tareaRepository;
 
+    //Estructuras de datos usadas en memoria
     private Lista<Tarea> listaTareas = new Lista<>();
     private Pila<Tarea> historialPila = new Pila<>();
     private Cola<Tarea> colaPendientes = new Cola<>();
@@ -48,18 +49,17 @@ public class TareaService {
     }
 
     public boolean eliminarTarea(int id) {
+        //Buscar tarea en lista
         for (int i = 0; i < listaTareas.tamanioLista(); i++) {
             Tarea t = listaTareas.obtener(i);
-
             if (t.getId() == id) {
-                // Eliminar de BD
+                //Eliminar de BD
                 tareaRepository.deleteById(id);
-
-                // Eliminar de estructuras
+                //Eliminar de estructuras
                 listaTareas.eliminarTarea(i);
                 arbolTareas.eliminar(t.getTitulo());
                 colaPendientes.eliminarElemento(t);
-                historialPila.Insertar(t);
+                historialPila.Insertar(t); //Registrar la accion en el historial
 
                 return true;
             }
@@ -68,6 +68,7 @@ public class TareaService {
     }
 
     public boolean editarTarea(Tarea editada) {
+        //Buscar tarea original
         Tarea original = buscarPorId(editada.getId());
         if (original == null) return false;
 
@@ -85,25 +86,29 @@ public class TareaService {
 
         // Reinsertar en árbol
         arbolTareas.insertar(original);
+        //Guardar en el historial
         historialPila.Insertar(original);
 
         return true;
     }
 
     public boolean completarTarea(int id) {
+        //Buscar tarea
         Tarea tarea = buscarPorId(id);
         if (tarea == null) return false;
-
+        //Marcar completada y actualizar BD
         tarea.setCompletada(true);
         tareaRepository.save(tarea);
 
         // Eliminar de cola de pendientes
         colaPendientes.eliminarElemento(tarea);
+        // Registrar acción en historial
         historialPila.Insertar(tarea);
 
         return true;
     }
 
+    //Buscar tarea recorriendo la lista enlazada
     public Tarea buscarPorId(int id) {
         for (int i = 0; i < listaTareas.tamanioLista(); i++) {
             Tarea t = listaTareas.obtener(i);
@@ -112,28 +117,33 @@ public class TareaService {
         return null;
     }
 
+    //Buscar por coincidencia parcial en título usando el arbol
     // devuelve Tarea[] para el controller
     public Tarea[] buscarPorTitulo(String texto) {
         Lista<Tarea> resultadosLista = arbolTareas.buscarPorFraccion(texto);
         return resultadosLista.obtenerArregloTareas();
     }
 
+    //Convertir lista enlazada a arreglo para devolverse al controller
     public Object[] obtenerTodas() {
         return listaTareas.obtenerArreglo();
     }
 
+    //Orden ascendente por prioridad
     public Tarea[] ordenarAsc() {
         Tarea[] tareas = arbolTareas.inordenLista(); // NO importa el orden base
         ordenarPorPrioridadAsc(tareas);
         return tareas;
     }
 
+    //Orden descendente por prioridad
     public Tarea[] ordenarDesc() {
         Tarea[] tareas = arbolTareas.inordenLista();
         ordenarPorPrioridadDesc(tareas);
         return tareas;
     }
 
+    //Asignar valor numerico a la prioridad
     private int prioridadValor(String prioridad) {
         if (prioridad == null) return 0;
 
@@ -145,6 +155,7 @@ public class TareaService {
         }
     }
 
+    //Bubble sort ascendente
     private void ordenarPorPrioridadAsc(Tarea[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             for (int j = 0; j < arr.length - i - 1; j++) {
@@ -161,6 +172,7 @@ public class TareaService {
         }
     }
 
+    //Bubble sort descendente
     private void ordenarPorPrioridadDesc(Tarea[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             for (int j = 0; j < arr.length - i - 1; j++) {
@@ -178,19 +190,21 @@ public class TareaService {
     }
 
     public boolean descompletarTarea(int id) {
+        //Buscar tarea
         Tarea tarea = buscarPorId(id);
         if (tarea == null) return false;
 
         tarea.setCompletada(false);
         tareaRepository.save(tarea);
-
+        //Regresar a la cola de pendientes
         colaPendientes.agregarElementos(tarea);
+        //Quitar del historial
         historialPila.eliminar(tarea);
 
         return true;
     }
 
-
+    //Atender siguiente tarea en orden FIFO
     public Tarea atenderSiguiente() {
         Tarea tarea = colaPendientes.quitarElemento();
         if (tarea != null) {
@@ -212,6 +226,7 @@ public class TareaService {
         return historialPila.Quitar();
     }
 
+    //Recargar estructuras desde la BD
     public void sincronizarConBD() {
         listaTareas = new Lista<>();
         arbolTareas = new ArbolBinario();

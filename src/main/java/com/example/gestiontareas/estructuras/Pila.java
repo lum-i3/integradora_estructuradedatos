@@ -1,14 +1,15 @@
 package com.example.gestiontareas.estructuras;
 
 public class Pila <T>{
-    private Nodo<T> cima;
-    private int size;
+    private Nodo<T> cima; //Ultimo elemento agregado
+    private int size; //Numero de elementos
 
     public Pila() {
         cima = null;
         size = 0;
     }
 
+    //Inserta elemento en la cima
     public void Insertar(T valor) {
         Nodo <T> nuevo = new Nodo<>(valor);
         nuevo.siguiente = cima;
@@ -16,10 +17,12 @@ public class Pila <T>{
         size++;
     }
 
+    //Indica si la pila esta vacia
     public boolean PilaVacia() {
         return cima == null;
     }
 
+    //Elimina y devuelve el elemento superior
     public T Quitar(){
         if (PilaVacia()) {
             System.out.println("Pila Vacia");
@@ -31,6 +34,7 @@ public class Pila <T>{
         return aux;
     }
 
+    //Devuelve el dato en la cima sin retirarlo
     public T CimaPila(){
         if(PilaVacia()){
             System.out.println("Pila Vacia");
@@ -41,6 +45,7 @@ public class Pila <T>{
         }
     }
 
+    //Vacia la pila
     public void LimpiarPila(){
         System.out.println("La Pila esta Vacia");
         cima = null;
@@ -55,6 +60,7 @@ public class Pila <T>{
         return size;
     }
 
+    //Muestra los elementos desde la cima hasta el fondo
     public void mostrarPila(){
         if(PilaVacia()){
             System.out.println("Pila Vacia");
@@ -70,13 +76,14 @@ public class Pila <T>{
         }
     }
 
+    //Elimina un elemento específico de la pila
     public boolean eliminar(T elemento) {
         if (PilaVacia()) return false;
 
         Pila<T> auxiliar = new Pila<>();
 
         boolean encontrado = false;
-
+        //Mover elementos a pila auxiliar
         while (!PilaVacia()) {
             T temp = Quitar();
 

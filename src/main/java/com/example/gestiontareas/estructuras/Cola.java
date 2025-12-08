@@ -1,9 +1,9 @@
 package com.example.gestiontareas.estructuras;
 
 public class Cola<T> {
-    private Nodo<T> inicio;
-    private Nodo<T> fin;
-    private int size;
+    private Nodo<T> inicio; //Primer elemento de la cola
+    private Nodo<T> fin; //Ultimo elemento de la cola
+    private int size; //Numero de elementos
 
     public Cola(){
         inicio = null;
@@ -11,10 +11,12 @@ public class Cola<T> {
         size = 0;
     }
 
+    //Verifica si la cola esta vacia
     public boolean estaVacia(){
         return inicio == null;
     }
 
+    //Inserta un elemento al final
     public void agregarElementos(T elemento){
         Nodo<T> nuevo = new Nodo<>(elemento);
         if(estaVacia()){
@@ -27,6 +29,7 @@ public class Cola<T> {
         size++;
     }
 
+    //Elimina y devuelve el primer elemento
     public T quitarElemento(){
         if(estaVacia()){
             System.out.println("No encontrado");
@@ -41,6 +44,7 @@ public class Cola<T> {
         return aux;
     }
 
+    //Devuelve el primer elemento sin eliminarlo
     public T verInicio(){
         if(estaVacia()){
             System.out.println("No encontrado");
@@ -49,6 +53,7 @@ public class Cola<T> {
         return inicio.data;
     }
 
+    //Muestra todos los elementos de la cola
     public void mostrarElementos(){
         if(estaVacia()){
             System.out.println("No encontrado");
@@ -63,12 +68,14 @@ public class Cola<T> {
         System.out.print("|");
     }
 
+    //Vacía la cola completamente
     public void borrarElementos(){
         inicio = null;
         fin = null;
         size = 0;
     }
 
+    //Elimina un elemento específico dentro de la cola
     public boolean eliminarElemento(T elemento) {
         if (estaVacia()) return false;
 

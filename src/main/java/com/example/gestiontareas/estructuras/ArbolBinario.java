@@ -3,22 +3,23 @@ import com.example.gestiontareas.model.Tarea;
 
 public class ArbolBinario {
 
-    private NodoArbol raiz;
+    private NodoArbol raiz; //Nodo raiz del arbol
 
     public ArbolBinario() {
-        raiz = null;
+        raiz = null; //El arbol inicia vacio
     }
 
-    // Insertar por título
+    //Insertar una tarea en el arbol comparando por título
     public void insertar(Tarea tarea) {
         raiz = insertarRec(raiz, tarea);
     }
 
+    //Insercion recursiva siguiendo las reglas de un arbol binario de busqueda
     private NodoArbol insertarRec(NodoArbol nodo, Tarea tarea) {
         if (nodo == null) {
-            return new NodoArbol(tarea);
+            return new NodoArbol(tarea); //Se crea un nuevo nodo si esta vacio
         }
-
+        //Comparacion alfabetica ignorando mayusculas
         if (tarea.getTitulo().compareToIgnoreCase(nodo.tarea.getTitulo()) < 0) {
             nodo.izq = insertarRec(nodo.izq, tarea);
         } else {
@@ -28,7 +29,7 @@ public class ArbolBinario {
         return nodo;
     }
 
-    // devuelve una Lista<Tarea> con las coincidencias parciales (case-insensitive)
+    //Busca coincidencias parciales del texto en los titulos y devuelve una Lista<Tarea> con las coincidencias parciales (case-insensitive)
     public Lista<Tarea> buscarPorFraccion(String texto) {
         Lista<Tarea> resultados = new Lista<>();
         if (texto == null || texto.isEmpty()) return resultados;
@@ -36,11 +37,12 @@ public class ArbolBinario {
         return resultados;
     }
 
+    //Recorrido en inorden buscando coincidencias parciales
     private void buscarPorFraccionRec(NodoArbol nodo, String texto, Lista<Tarea> resultados) {
         if (nodo == null) return;
 
         buscarPorFraccionRec(nodo.izq, texto, resultados);
-
+        //Coincidencia parcial en el titulo
         if (nodo.tarea != null && nodo.tarea.getTitulo() != null &&
                 nodo.tarea.getTitulo().toLowerCase().contains(texto)) {
             resultados.agregarFinal(nodo.tarea);
@@ -49,10 +51,12 @@ public class ArbolBinario {
         buscarPorFraccionRec(nodo.der, texto, resultados);
     }
 
+    //Elimina un nodo segun el titulo
     public void eliminar(String titulo) {
         raiz = eliminarRec(raiz, titulo);
     }
 
+    //Eliminacion recursiva con casos: sin hijos, un hijo, dos hijos
     private NodoArbol eliminarRec(NodoArbol nodo, String titulo) {
         if (nodo == null) return null;
 
@@ -80,11 +84,13 @@ public class ArbolBinario {
         return nodo;
     }
 
+    //Busca el nodo mas pequeño del subarbol derecho
     private NodoArbol obtenerMinimo(NodoArbol nodo) {
         while (nodo.izq != null) nodo = nodo.izq;
         return nodo;
     }
 
+    //Convierte el recorrido inorden en un arreglo
     public Tarea[] inordenLista() {
         int total = contarNodos(raiz);
         Tarea[] arreglo = new Tarea[total];
@@ -92,11 +98,13 @@ public class ArbolBinario {
         return arreglo;
     }
 
+    //Cuenta los nodos del arbol
     private int contarNodos(NodoArbol nodo) {
         if (nodo == null) return 0;
         return 1 + contarNodos(nodo.izq) + contarNodos(nodo.der);
     }
 
+    //Llena un arreglo siguiendo recorrido inorden ascendente
     private void llenarInorden(NodoArbol nodo, Tarea[] arr, int[] i) {
         if (nodo != null) {
             llenarInorden(nodo.izq, arr, i);
@@ -105,6 +113,7 @@ public class ArbolBinario {
         }
     }
 
+    //Devuelve un arreglo en orden descendente
     public Tarea[] inordenListaInvertida() {
         int total = contarNodos(raiz);
         Tarea[] arreglo = new Tarea[total];
@@ -112,6 +121,7 @@ public class ArbolBinario {
         return arreglo;
     }
 
+    //Recorrido inorden descendente
     private void llenarInordenDesc(NodoArbol nodo, Tarea[] arr, int[] i) {
         if (nodo != null) {
             llenarInordenDesc(nodo.der, arr, i);
@@ -120,6 +130,7 @@ public class ArbolBinario {
         }
     }
 
+    //Imprime recorrido inorden
     public void inorden() {
         inordenRec(raiz);
     }

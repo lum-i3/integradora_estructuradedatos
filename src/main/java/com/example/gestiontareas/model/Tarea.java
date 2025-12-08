@@ -8,20 +8,21 @@ public class Tarea {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int id; //Identificador único autoincremental
 
     @Column(nullable = false)
-    private String titulo;
+    private String titulo; //Título de la tarea
 
     @Column(length = 500)
-    private String descripcion;
+    private String descripcion; //Descripción de tarea
 
     @Column(nullable = false)
-    private boolean completada;
+    private boolean completada; //Boolean para completar
 
     @Column(nullable = false)
-    private String prioridad;
+    private String prioridad; //Nivel de prioridad
 
+    //Constructor de nuevas tareas
     public Tarea(String titulo, String descripcion, String prioridad) {
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -29,6 +30,7 @@ public class Tarea {
         this.prioridad = prioridad;
     }
 
+    //Constructor vacío obligatorio para JPA
     public Tarea() {
     }
 
@@ -73,6 +75,7 @@ public class Tarea {
         this.prioridad = prioridad;
     }
 
+    //Representación en texto para depuración
     @Override
     public String toString() {
         return "Tarea " + id + "\n" +

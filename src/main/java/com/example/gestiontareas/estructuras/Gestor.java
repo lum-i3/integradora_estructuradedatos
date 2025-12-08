@@ -3,10 +3,12 @@ package com.example.gestiontareas.estructuras;
 import com.example.gestiontareas.model.Tarea;
 
 public class Gestor {
+    //Colas separadas por prioridad
     private Cola<Tarea> colaAlta = new Cola<>();
     private Cola<Tarea> colaMedia = new Cola<>();
     private Cola<Tarea> colaBaja = new Cola<>();
 
+    //Agrega tarea a lista general y a la cola correspondiente
     public void agregarTarea(Tarea tarea, Lista lista) {
         lista.agregarFinal(tarea);
         switch (tarea.getPrioridad().toLowerCase()) {
@@ -22,6 +24,7 @@ public class Gestor {
         }
     }
 
+    //Completa la siguiente tarea dando prioridad a las colas superiores
     public Tarea completarSiguienteTarea() {
         Tarea tarea = null;
 
@@ -42,6 +45,7 @@ public class Gestor {
         return tarea;
     }
 
+    //Muestra las colas por prioridad
     public void mostrarColas() {
         System.out.println("\nTareas por prioridad");
         System.out.print("Alta: ");
