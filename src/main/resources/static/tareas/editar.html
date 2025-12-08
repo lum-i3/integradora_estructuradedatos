@@ -29,17 +29,23 @@
             <input type="hidden" name="id" value="" class="input-sencillo">
 
             <label>Título:</label>
-            <input type="text" name="titulo" required class="input-sencillo"><br><br>
+            <input type="text" name="titulo" required class="input-sencillo">
+            <span class="msg-error"></span>
+            <br><br>
 
             <label>Descripción:</label>
-            <input type="text" name="descripcion" required class="input-sencillo"><br><br>
+            <input type="text" name="descripcion" required class="input-sencillo">
+            <span class="msg-error"></span>
+            <br><br>
 
             <label>Prioridad:</label>
             <select name="prioridad" required class="input-sencillo">
                 <option>Alta</option>
                 <option>Media</option>
                 <option>Baja</option>
-            </select><br><br>
+            </select>
+            <span class="msg-error"></span>
+            <br><br>
 
             <label>
                 <input type="checkbox" name="completada">

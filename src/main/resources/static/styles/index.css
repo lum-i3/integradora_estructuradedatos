@@ -26,6 +26,27 @@ body {
     box-shadow: 0 0 5px rgb(17, 140, 111);
 }
 
+.input-error {
+    border: 2px solid #e57373; /* rojo */
+    background-color: #ffebee;
+}
+
+.input-ok {
+    border: 2px solid #81c784; /* verde */
+    background-color: #e8f5e9;
+}
+
+.mensaje-error {
+    color: #c62828;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.msg-error {
+    color: red;
+    font-size: 13px;
+}
+
 .navbar {
     background-color: #4b7763;
     height: 60px;
