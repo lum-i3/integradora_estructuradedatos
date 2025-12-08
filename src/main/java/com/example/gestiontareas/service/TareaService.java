@@ -1,5 +1,6 @@
 package com.example.gestiontareas.service;
 
+import com.example.gestiontareas.model.HistorialAccion;
 import com.example.gestiontareas.model.Tarea;
 import com.example.gestiontareas.repository.TareaRepository;
 import com.example.gestiontareas.estructuras.Lista;
@@ -20,7 +21,7 @@ public class TareaService {
 
     //Estructuras de datos usadas en memoria
     private Lista<Tarea> listaTareas = new Lista<>();
-    private Pila<Tarea> historialPila = new Pila<>();
+    private Pila<HistorialAccion> historialPila = new Pila<>();
     private Cola<Tarea> colaPendientes = new Cola<>();
     private ArbolBinario arbolTareas = new ArbolBinario();
 
@@ -43,7 +44,7 @@ public class TareaService {
 
         // Agregar a estructuras de datos
         listaTareas.agregarFinal(tareaGuardada);
-        historialPila.Insertar(tareaGuardada);
+        historialPila.Insertar(new HistorialAccion("Tarea creada", tareaGuardada));
         colaPendientes.agregarElementos(tareaGuardada);
         arbolTareas.insertar(tareaGuardada);
     }
@@ -59,7 +60,7 @@ public class TareaService {
                 listaTareas.eliminarTarea(i);
                 arbolTareas.eliminar(t.getTitulo());
                 colaPendientes.eliminarElemento(t);
-                historialPila.Insertar(t); //Registrar la accion en el historial
+                historialPila.Insertar(new HistorialAccion("Tarea eliminada", t));//Registrar la accion en el historial
 
                 return true;
             }
@@ -87,7 +88,7 @@ public class TareaService {
         // Reinsertar en árbol
         arbolTareas.insertar(original);
         //Guardar en el historial
-        historialPila.Insertar(original);
+        historialPila.Insertar(new HistorialAccion("Tarea editada", original));
 
         return true;
     }
@@ -103,7 +104,7 @@ public class TareaService {
         // Eliminar de cola de pendientes
         colaPendientes.eliminarElemento(tarea);
         // Registrar acción en historial
-        historialPila.Insertar(tarea);
+        historialPila.Insertar(new HistorialAccion("Tarea completada", tarea));
 
         return true;
     }
@@ -199,8 +200,7 @@ public class TareaService {
         //Regresar a la cola de pendientes
         colaPendientes.agregarElementos(tarea);
         //Quitar del historial
-        historialPila.eliminar(tarea);
-
+        historialPila.Insertar(new HistorialAccion("Tarea descompletada", tarea));
         return true;
     }
 
@@ -218,13 +218,16 @@ public class TareaService {
         return colaPendientes.TamanoCola();
     }
 
-    public Tarea ultimaAccion() {
-        return historialPila.CimaPila();
+
+    public HistorialAccion[] obtenerHistorial() {
+        Object[] arr = historialPila.obtenerArreglo();
+        HistorialAccion[] lista = new HistorialAccion[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            lista[i] = (HistorialAccion) arr[i];
+        }
+        return lista;
     }
 
-    public Tarea deshacerAccion() {
-        return historialPila.Quitar();
-    }
 
     //Recargar estructuras desde la BD
     public void sincronizarConBD() {

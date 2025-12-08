@@ -1,4 +1,8 @@
-document.addEventListener("DOMContentLoaded", cargarTareas);
+document.addEventListener("DOMContentLoaded", () => {
+    cargarTareas();
+    cargarHistorial();
+});
+
 
 function cargarTareas() {
     fetch("/api/tareas")
@@ -94,6 +98,28 @@ function ordenar(tipo) {
             });
         });
 }
+
+function cargarHistorial() {
+    fetch('/api/tareas/historial')
+        .then(res => res.json())
+        .then(historial => {
+            const cont = document.getElementById("contenedor-historial");
+            cont.innerHTML = "";
+
+            historial.forEach(h => {
+                const div = document.createElement("div");
+                div.classList.add("historial-card");
+
+                div.innerHTML = `
+                <p><b>Acción:</b> ${h.accion}</p>
+                <p><b>Tarea:</b> ${h.tarea.titulo}</p>
+                <p><b>Fecha:</b> ${h.fecha}</p>
+            `;
+                cont.appendChild(div);
+            });
+        });
+}
+
 
 function crearCard(t) {
     const card = document.createElement("div");

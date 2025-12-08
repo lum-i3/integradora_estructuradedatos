@@ -1,5 +1,6 @@
 package com.example.gestiontareas.controllers;
 
+import com.example.gestiontareas.model.HistorialAccion;
 import com.example.gestiontareas.model.Tarea;
 import com.example.gestiontareas.service.TareaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +66,13 @@ public class TareaController {
     public boolean descompletar(@PathVariable int id) {
         return tareaService.descompletarTarea(id);
     }
+
+    @GetMapping("/historial")
+    public HistorialAccion[] historial() {
+        return tareaService.obtenerHistorial();
+    }
+
+
+
 
 }

@@ -102,4 +102,17 @@ public class Pila <T>{
         return encontrado;
     }
 
+    //Mostrar historial
+    public Object[] obtenerArreglo() {
+        if (PilaVacia()) return new Object[0];
+        Object[] temp = new Object[size];
+        Nodo<T> aux = cima;
+        int i = 0;
+        while (aux != null) {
+            temp[i++] = aux.data;
+            aux = aux.siguiente;
+        }
+        return temp;
+    }
+
 }
